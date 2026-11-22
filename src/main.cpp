@@ -3,11 +3,8 @@
 #include <DHT.h>
 #include <ThingSpeak.h>
 
-#if __has_include("config.h")
-  #include "config.h"
-#else
-  #include "config.example.h"
-#endif
+// Create include/config.h from include/config.example.h before building.
+#include "config.h"
 
 #ifndef SENSOR_TYPE
   #define SENSOR_TYPE DHT11
