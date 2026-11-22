@@ -38,9 +38,9 @@ The example firmware interval is 20 seconds. If cloud publishing is enabled, con
 
 ## 5. Automated verification
 
-GitHub Actions runs PlatformIO compilation using the committed example configuration, then runs Python unit tests against the illustrative CSV file. This checks source compatibility with the selected PlatformIO environment and validates the sample file's columns, numeric parsing and broad value bounds.
+GitHub Actions copies the safe example configuration to the ignored local config file, compiles the ESP8266 firmware with PlatformIO, then runs Python unit tests against the illustrative CSV file. The latest run passed both the firmware build and sample-data tests. This checks source compilation in the hosted environment and validates the sample file's columns, numeric parsing and broad value bounds.
 
-Workflow: https://github.com/akashp9686-star/iot-temperature-humidity-monitor/actions/workflows/firmware-build.yml
+Latest successful workflow run: https://github.com/akashp9686-star/iot-temperature-humidity-monitor/actions/runs/44999101950
 
 ## 6. What is and is not verified
 
