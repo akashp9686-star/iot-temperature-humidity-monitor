@@ -54,7 +54,10 @@ The project owner has confirmed the DHT11 and D2 data-pin configuration. The exa
 ├── docs/
 │   ├── architecture.md
 │   ├── wiring.md
-│   └── testing.md
+│   ├── testing.md
+│   ├── references.md
+│   ├── review-checklist.md
+│   └── verification-and-research.md
 ├── examples/
 │   └── sample_readings.csv
 ├── tests/
