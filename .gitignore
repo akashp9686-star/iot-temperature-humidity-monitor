@@ -1,0 +1,24 @@
+# Local secrets
+include/config.h
+
+# PlatformIO
+.pio/
+.piolibdeps/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Build artifacts
+build/
+dist/
+*.elf
+*.bin
