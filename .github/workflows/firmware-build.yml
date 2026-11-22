@@ -1,0 +1,25 @@
+name: Firmware build and sample-data tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  firmware-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Install PlatformIO
+        run: pip install platformio
+      - name: Compile ESP8266 firmware
+        run: pio run
+      - name: Run sample-data validation tests
+        run: python -m unittest discover -s tests -v
