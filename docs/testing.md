@@ -7,8 +7,8 @@
 | Repository documentation created | Completed |
 | Firmware source included | Included; not hardware-verified |
 | PlatformIO configuration included | Included |
-| Automated PlatformIO firmware build | Run status shown in GitHub Actions; check latest workflow result |
-| Automated sample CSV tests | Run status shown in GitHub Actions; check latest workflow result |
+| Automated PlatformIO firmware build | CI creates an ignored local config from the safe example and compiles with PlatformIO; see [workflow](https://github.com/akashp9686-star/iot-temperature-humidity-monitor/actions/workflows/firmware-build.yml) |
+| Automated sample CSV tests | Run after firmware compilation in the same workflow |
 | CSV example format test | Can be run locally |
 | Physical DHT sensor test | Not verified |
 | ESP8266 upload test | Not verified |
