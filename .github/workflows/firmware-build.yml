@@ -19,6 +19,8 @@ jobs:
           python-version: "3.x"
       - name: Install PlatformIO
         run: pip install platformio
+      - name: Create local config from safe example
+        run: cp include/config.example.h include/config.h
       - name: Compile ESP8266 firmware
         run: pio run
       - name: Run sample-data validation tests
