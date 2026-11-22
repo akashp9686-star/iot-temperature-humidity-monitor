@@ -144,3 +144,8 @@ See [docs/testing.md](docs/testing.md) for the current verification record and r
 ## License
 
 This project is provided under the MIT License. See [LICENSE](LICENSE).
+
+
+## Evaluator guide
+
+For a concise review path, see [docs/evaluator-guide.md](docs/evaluator-guide.md). It identifies the firmware, technical evidence, reproducible checks and physical-validation limitations.
