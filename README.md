@@ -1,5 +1,7 @@
 # IoT Temperature & Humidity Monitoring System
 
+[![Firmware build and tests](https://github.com/akashp9686-star/iot-temperature-humidity-monitor/actions/workflows/firmware-build.yml/badge.svg)](https://github.com/akashp9686-star/iot-temperature-humidity-monitor/actions/workflows/firmware-build.yml)
+
 An ESP8266 NodeMCU-based IoT project that reads ambient temperature and relative humidity using a **DHT11 sensor** and publishes readings to **ThingSpeak**.
 
 > **Hardware configuration reported by the project owner:** DHT11 sensor connected to NodeMCU D2 (GPIO4). The owner reports that ThingSpeak data publishing has worked. This repository has not independently reproduced or re-tested that physical setup.
