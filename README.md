@@ -113,13 +113,17 @@ The handbook describes a temperature-threshold alert as an optional extension. I
 
 ## Validation and testing
 
-Run the repository's lightweight sample CSV check:
+The GitHub Actions workflow creates a local configuration from the safe example, compiles the ESP8266 firmware with PlatformIO, and runs the sample CSV tests on every push or pull request to `main`.
+
+[View firmware build and test workflow](https://github.com/akashp9686-star/iot-temperature-humidity-monitor/actions/workflows/firmware-build.yml)
+
+Run the sample-data tests locally with:
 
 ```bash
 python -m unittest discover -s tests -v
 ```
 
-This checks only the illustrative CSV file's structure and broad numeric ranges. It does not compile the firmware or independently test the DHT11, ESP8266, Wi-Fi connection, or ThingSpeak channel.
+The automated CSV tests validate only the illustrative file's structure and broad numeric ranges. A passing firmware build verifies compilation in the hosted environment; neither check independently tests the DHT11, ESP8266 hardware, Wi-Fi connection, or ThingSpeak channel.
 
 See [docs/testing.md](docs/testing.md) for the current verification record and remaining checks.
 
