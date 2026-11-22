@@ -6,7 +6,9 @@
 |---|---|
 | Repository documentation created | Completed |
 | Firmware source included | Included; not hardware-verified |
-| PlatformIO configuration included | Included; build not run in this environment |
+| PlatformIO configuration included | Included |
+| Automated PlatformIO firmware build | Run status shown in GitHub Actions; check latest workflow result |
+| Automated sample CSV tests | Run status shown in GitHub Actions; check latest workflow result |
 | CSV example format test | Can be run locally |
 | Physical DHT sensor test | Not verified |
 | ESP8266 upload test | Not verified |
