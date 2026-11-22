@@ -1,27 +1,43 @@
 # IoT Temperature & Humidity Monitoring System
 
-An ESP8266 NodeMCU-based project intended to read ambient temperature and relative humidity from a DHT11 or DHT22 sensor and optionally publish readings to ThingSpeak.
+An ESP8266 NodeMCU-based IoT project that reads ambient temperature and relative humidity using a **DHT11 sensor** and publishes readings to **ThingSpeak**.
 
-> **Project status:** This repository contains a documented firmware implementation and setup materials. The contents have not been physically tested or verified against the author's exact assembled circuit in this repository update. Do not interpret example data as measured results.
+> **Hardware configuration reported by the project owner:** DHT11 sensor connected to NodeMCU D2 (GPIO4). The owner reports that ThingSpeak data publishing has worked. This repository has not independently reproduced or re-tested that physical setup.
 
 ## Features
 
 - ESP8266 NodeMCU firmware using the Arduino framework
-- DHT11 / DHT22 selection through a configuration setting
-- Serial output for temperature and humidity readings
-- Optional ThingSpeak channel publishing
-- Credentials kept out of source control
+- DHT11 temperature and humidity sensing
+- Serial Monitor output
+- ThingSpeak cloud publishing
+- Temperature in ThingSpeak Field 1 (°C)
+- Relative humidity in ThingSpeak Field 2 (%)
+- Local configuration file for Wi-Fi and ThingSpeak credentials
 - PlatformIO build configuration
-- Wiring, architecture, setup and validation documentation
 
-## Hardware target
+## Confirmed project configuration
+
+| Item | Configuration |
+|---|---|
+| Controller | ESP8266 NodeMCU |
+| Sensor | DHT11 |
+| Sensor DATA pin | D2 (GPIO4) |
+| Cloud platform | ThingSpeak |
+| ThingSpeak Field 1 | Temperature (°C) |
+| ThingSpeak Field 2 | Relative humidity (%) |
+| Firmware interval | 20 seconds |
+
+The 20-second interval is configurable and is above the 15-second minimum commonly applied to free ThingSpeak channel updates. Check the current ThingSpeak service limits before changing it.
+
+## Hardware requirements
 
 - ESP8266 NodeMCU development board
-- DHT11 or DHT22 temperature/humidity sensor (select the model in configuration)
+- DHT11 temperature and humidity sensor
+- Breadboard and jumper wires as required
 - USB cable and suitable power source
-- Jumper wires and breadboard as required
+- Pull-up resistor as required by the particular DHT11 sensor/module
 
-The default data pin in the example configuration is NodeMCU **D2 (GPIO4)**. Confirm this against the actual wiring before powering the circuit. Sensor type and pin assignments must match the physical build.
+The project owner has confirmed the DHT11 and D2 data-pin configuration. The exact sensor breakout type and whether an external pull-up resistor is installed have not been independently confirmed. The handbook calls for a 10 kΩ pull-up arrangement; check the module and actual circuit before adding or documenting one as physically installed.
 
 ## Repository layout
 
@@ -47,20 +63,23 @@ The default data pin in the example configuration is NodeMCU **D2 (GPIO4)**. Con
 
 ## Software requirements
 
-- PlatformIO Core / PlatformIO IDE
+- PlatformIO Core or PlatformIO IDE
 - ESP8266 platform for PlatformIO
-- Libraries declared in `platformio.ini`: Adafruit DHT sensor library, Adafruit Unified Sensor, and ThingSpeak
+- Adafruit DHT sensor library
+- Adafruit Unified Sensor library
+- ThingSpeak library
 
-## Configure
+## Configure the firmware
 
 1. Copy `include/config.example.h` to `include/config.h`.
-2. Enter your Wi-Fi SSID and password in `config.h`.
-3. Choose `DHT11` or `DHT22` for `SENSOR_TYPE`.
-4. Set `DHT_PIN` to the GPIO connected to the sensor data pin.
-5. To publish to ThingSpeak, set `THINGSPEAK_ENABLED` to `1`, then enter your channel number and **Write API Key**.
-6. Never commit `config.h` or publish your Wi-Fi password / API key.
+2. Enter your Wi-Fi SSID and password in the local `config.h`.
+3. Keep `SENSOR_TYPE` set to `DHT11`.
+4. Keep `DHT_PIN` set to `D2` to match the confirmed project wiring.
+5. Set `THINGSPEAK_ENABLED` to `1` in your local configuration.
+6. Enter your ThingSpeak Channel ID and Write API Key.
+7. Never commit `config.h`, Wi-Fi credentials, or API keys.
 
-If ThingSpeak is not configured, leave `THINGSPEAK_ENABLED` set to `0`; readings are still printed to the Serial Monitor.
+The example configuration intentionally disables cloud publishing and contains placeholders. This prevents secrets from being published in the repository.
 
 ## Build and upload
 
@@ -72,33 +91,40 @@ pio run --target upload
 pio device monitor
 ```
 
-Select the correct serial port and board upload settings for your NodeMCU. The project uses the PlatformIO `nodemcuv2` board profile as a starting point.
+Select the correct serial port and board upload settings for your NodeMCU. The project uses the PlatformIO `nodemcuv2` board profile as a starting point. The firmware uses a 115200 baud Serial Monitor.
 
-## ThingSpeak fields
+## ThingSpeak channel mapping
 
-When enabled, the firmware writes:
-- Field 1: temperature in degrees Celsius
-- Field 2: relative humidity in percent
+| ThingSpeak field | Data |
+|---|---|
+| Field 1 | Temperature in degrees Celsius |
+| Field 2 | Relative humidity in percent |
 
-ThingSpeak channel publishing is rate-limited by the service. The default firmware interval is 20 seconds; adjust it to comply with the current limits of your account and service.
+The project owner reports that ThingSpeak publishing has worked on the physical project. No live channel link or independent test capture is included in this repository yet.
 
-## Validation
+## Temperature-threshold alert
 
-Run the repository's lightweight CSV example check with:
+The handbook describes a temperature-threshold alert as an optional extension. It is **not currently implemented** in the committed firmware. It should only be listed as a completed feature after the code is added and tested.
+
+## Validation and testing
+
+Run the repository's lightweight sample CSV check:
 
 ```bash
 python -m unittest discover -s tests -v
 ```
 
-This checks only the format and numeric ranges of the illustrative CSV file. It does **not** validate a sensor, ESP8266 board, Wi-Fi connection or ThingSpeak deployment. See [docs/testing.md](docs/testing.md).
+This checks only the illustrative CSV file's structure and broad numeric ranges. It does not compile the firmware or independently test the DHT11, ESP8266, Wi-Fi connection, or ThingSpeak channel.
+
+See [docs/testing.md](docs/testing.md) for the current verification record and remaining checks.
 
 ## Safety and limitations
 
-- Use the correct supply voltage for your specific sensor module.
-- ESP8266 GPIO is 3.3 V logic; do not apply 5 V to GPIO.
-- Confirm the actual sensor model and data pin before uploading firmware.
-- Network credentials and ThingSpeak keys are local configuration, not repository content.
-- Hardware operation, sensor accuracy, Wi-Fi connectivity and cloud updates remain unverified until tested on the actual assembly.
+- Confirm the DHT11 module's supply-voltage requirements and pin labels.
+- ESP8266 GPIO uses 3.3 V logic; do not apply 5 V to GPIO.
+- Keep Wi-Fi credentials and ThingSpeak API keys out of version control.
+- The physical configuration is owner-reported; independent hardware re-testing remains outstanding.
+- No project photographs or live ThingSpeak dashboard URL have been supplied for this repository update.
 
 ## References
 
