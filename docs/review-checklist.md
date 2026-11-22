@@ -13,7 +13,7 @@
 - [x] Technical research and references documented
 - [x] Automated PlatformIO build workflow configured
 - [x] Automated sample CSV validation tests included
-- [ ] Confirm latest GitHub Actions run is successful
+- [x] Confirm latest GitHub Actions run is successful ([run 44999101950](https://github.com/akashp9686-star/iot-temperature-humidity-monitor/actions/runs/44999101950))
 
 ## Physical verification (not part of the repository-only preparation)
 - [ ] Sensor readings verified on a physical NodeMCU
