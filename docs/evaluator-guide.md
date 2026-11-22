@@ -1,29 +1,25 @@
 # Evaluator Guide — Project 01
 
 ## Project
-IoT Temperature & Humidity Monitoring System — ESP8266 NodeMCU, DHT11 and ThingSpeak.
+IoT Temperature & Humidity Monitor — ESP8266 NodeMCU, DHT11 and ThingSpeak.
 
 ## What to review
 - Firmware: `src/main.cpp`
 - Build configuration: `platformio.ini`
 - Safe configuration template: `include/config.example.h`
-- System design and wiring: `docs/architecture.md`, `docs/wiring.md`
-- Verification scope: `docs/testing.md`, `docs/review-checklist.md`
+- Architecture and wiring: `docs/architecture.md`, `docs/wiring.md`
+- Verification: `docs/testing.md`, `docs/review-checklist.md`
 - Illustrative sample readings and automated checks: `examples/`, `tests/`
 
 ## Reproducible software checks
 1. Install PlatformIO.
 2. Copy `include/config.example.h` to `include/config.h`.
-3. Keep the placeholder credentials for compilation, or add private local credentials for a real deployment.
+3. Keep placeholder credentials for compilation; add private credentials only for live use.
 4. Run `pio run`.
 5. Run `python -m unittest discover -s tests -v`.
 
-The GitHub Actions workflow provides hosted build/test evidence. Review the linked workflow badge and Actions history for the actual run result.
+## Handbook alignment
+DHT11 DATA is assigned to NodeMCU D4 / GPIO2. Handbook wiring specifies a 10kΩ pull-up between DATA and VCC; inspect the actual sensor module to avoid omitting or duplicating an onboard resistor. ThingSpeak Field 1 = temperature (°C), Field 2 = humidity (%). Firmware uses 15 seconds between updates to respect ThingSpeak free-tier minimum spacing; the handbook's nominal 10-second interval is adjusted for service limits.
 
-## Scope and evidence
-The project owner reports the DHT11 data pin as NodeMCU D2/GPIO4 and reports prior ThingSpeak publishing. These are owner-reported details, not independently reproduced by this repository review. The automated workflow does not test the physical sensor, Wi-Fi, or live ThingSpeak channel. No independent physical test evidence or live dashboard capture is currently included.
-
-The optional temperature-threshold alert is not implemented and must not be evaluated as a completed feature.
-
-## Evaluator request
-Please assess the repository's source code, design documentation, research references, software build and automated tests. Please advise whether this repository-based evidence is sufficient for your evaluation process and identify any additional physical demonstration or evidence required.
+## Verification boundary
+Latest hosted firmware build and sample-data test status: see [GitHub Actions](https://github.com/akashp9686-star/iot-temperature-humidity-monitor/actions). Physical DHT11 readings, pull-up installation, Wi-Fi and live ThingSpeak upload are not claimed as independently tested. The optional threshold alert is not implemented.
