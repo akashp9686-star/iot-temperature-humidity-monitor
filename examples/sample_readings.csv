@@ -1,0 +1,4 @@
+timestamp,temperature_c,humidity_percent,record_type
+2026-01-01T00:00:00Z,24.0,50.0,illustrative
+2026-01-01T00:00:20Z,24.1,49.8,illustrative
+2026-01-01T00:00:40Z,24.2,49.7,illustrative
